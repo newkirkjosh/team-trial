@@ -21,4 +21,13 @@ check "unknown flag prints nothing to stdout" "" "$(bash greet.sh --whisper Ada 
 bash greet.sh --whisper >/dev/null 2>&1; check "unknown flag alone exits 2" "2" "$?"
 check "unknown flag alone prints nothing to stdout" "" "$(bash greet.sh --whisper 2>/dev/null)"
 
+for args in "--shout --whisper" "--shout --shout" "--shout -x"; do
+  # shellcheck disable=SC2086
+  bash greet.sh $args >/dev/null 2>&1; check "'$args' exits 2" "2" "$?"
+  # shellcheck disable=SC2086
+  check "'$args' prints usage to stderr" "usage" "$(bash greet.sh $args 2>&1 >/dev/null | head -c 5)"
+  # shellcheck disable=SC2086
+  check "'$args' prints nothing to stdout" "" "$(bash greet.sh $args 2>/dev/null)"
+done
+
 exit $fail
