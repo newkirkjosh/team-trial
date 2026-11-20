@@ -50,4 +50,40 @@ else
   echo "  skip: non-ASCII --shout cases (no UTF-8 locale installed; upper-casing non-ASCII is only defined in one)"
 fi
 
+# --repeat N: the greeting line is printed N times; combines with --shout in either order.
+check "--repeat 3 prints the greeting three times" $'Hello, Ada!\nHello, Ada!\nHello, Ada!' "$(bash greet.sh --repeat 3 Ada 2>/dev/null)"
+bash greet.sh --repeat 3 Ada >/dev/null 2>&1; check "--repeat 3 with name exits 0" "0" "$?"
+check "--repeat 1 prints the greeting once" "Hello, Ada!" "$(bash greet.sh --repeat 1 Ada 2>/dev/null)"
+check "--repeat 2 --shout prints the shouted greeting twice" $'HELLO, ADA!\nHELLO, ADA!' "$(bash greet.sh --repeat 2 --shout Ada 2>/dev/null)"
+check "--shout --repeat 2 prints the shouted greeting twice" $'HELLO, ADA!\nHELLO, ADA!' "$(bash greet.sh --shout --repeat 2 Ada 2>/dev/null)"
+bash greet.sh --repeat 2 --shout Ada >/dev/null 2>&1; check "--repeat 2 --shout with name exits 0" "0" "$?"
+bash greet.sh --shout --repeat 2 Ada >/dev/null 2>&1; check "--shout --repeat 2 with name exits 0" "0" "$?"
+check "--repeat 3 prints exactly three lines" "3" "$(bash greet.sh --repeat 3 Ada 2>/dev/null | wc -l | tr -d ' ')"
+check "without --repeat prints exactly one line" "1" "$(bash greet.sh Ada 2>/dev/null | wc -l | tr -d ' ')"
+
+# Invalid --repeat: exit 2, nothing on stdout, and the usage message on stderr that names --repeat.
+# Each case is one check that folds in the exit code, so it only passes once --repeat is a documented flag.
+# Arguments are listed one per line so an empty or odd value stays a single argument.
+repeat_usage_case() { # <description> <args...>
+  local desc=$1 out err rc
+  shift
+  out=$(bash greet.sh "$@" 2>/dev/null); rc=$?
+  err=$(bash greet.sh "$@" 2>&1 >/dev/null)
+  case "$err" in
+    usage*--repeat*) err=usage-with-repeat ;;
+    *) err="stderr:$err" ;;
+  esac
+  check "$desc exits 2, usage mentions --repeat, empty stdout" "2|usage-with-repeat|" "$rc|$err|$out"
+}
+repeat_usage_case "--repeat with no count and no name" --repeat
+repeat_usage_case "--repeat with no count (name follows)" --repeat Ada
+repeat_usage_case "--repeat 0" --repeat 0 Ada
+repeat_usage_case "--repeat -1" --repeat -1 Ada
+repeat_usage_case "--repeat abc" --repeat abc Ada
+repeat_usage_case "--repeat 2x" --repeat 2x Ada
+repeat_usage_case "--repeat 1.5" --repeat 1.5 Ada
+repeat_usage_case "--repeat with empty count" --repeat "" Ada
+repeat_usage_case "--repeat 3 with no name" --repeat 3
+repeat_usage_case "--shout --repeat with no count" --shout --repeat Ada
+
 exit $fail
