@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Usage: greet.sh [--shout] <name>
 # Prints a greeting for <name>; with --shout the greeting is upper case.
+# Requires Bash 4 or later.
 set -euo pipefail
 
 usage() {
@@ -26,6 +27,6 @@ esac
 
 greeting=$(printf 'Hello, %s!' "$1")
 if [ "$shout" -eq 1 ]; then
-  greeting=$(printf '%s' "$greeting" | tr '[:lower:]' '[:upper:]')
+  greeting=${greeting^^}
 fi
 printf '%s\n' "$greeting"
