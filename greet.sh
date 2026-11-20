@@ -26,6 +26,6 @@ esac
 
 greeting=$(printf 'Hello, %s!' "$1")
 if [ "$shout" -eq 1 ]; then
-  greeting=${greeting^^}
+  greeting=$(printf '%s' "$greeting" | tr '[:lower:]' '[:upper:]')
 fi
 printf '%s\n' "$greeting"
