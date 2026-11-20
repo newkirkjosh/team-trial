@@ -10,4 +10,4 @@ Add `farewell.sh`, which prints `Goodbye, <name>!`.
 The CLI greets but can't say goodbye.
 
 ## Out of scope
-`greet.sh` and its tests, flags on `farewell.sh`, CI changes.
+`README.md`, `greet.sh` and its tests, flags on `farewell.sh`, CI changes.
