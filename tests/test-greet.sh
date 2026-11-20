@@ -30,4 +30,11 @@ for args in "--shout --whisper" "--shout --shout" "--shout -x"; do
   check "'$args' prints nothing to stdout" "" "$(bash greet.sh $args 2>/dev/null)"
 done
 
+# Non-ASCII: bytes are spelled as escapes so the test file's own locale cannot garble them.
+# name = "José" (e-acute is C3 A9); expected = "HELLO, JOSÉ!" (E-acute is C3 89).
+jose=$'Jos\xc3\xa9'
+upper_jose=$'HELLO, JOS\xc3\x89!'
+check "--shout upper-cases non-ASCII letters in a UTF-8 locale" "$upper_jose" "$(LC_ALL=C.UTF-8 bash greet.sh --shout "$jose" 2>/dev/null)"
+LC_ALL=C.UTF-8 bash greet.sh --shout "$jose" >/dev/null 2>&1; check "--shout with non-ASCII name exits 0" "0" "$?"
+
 exit $fail
