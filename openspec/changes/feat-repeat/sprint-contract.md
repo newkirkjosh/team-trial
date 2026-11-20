@@ -20,3 +20,5 @@ Evaluated at: eacb887d17459b3c5f4d3a6852bfc1d7a8ce4393
 - [x] Out of scope respected: `farewell.sh` identical to base, existing `--shout` tests pass, no CI change — `cmp` against base export; only `greet.sh`, `README.md`, `tests/test-greet.sh` and the change folder differ
 
 Evidence: fresh evaluator run on the history-free export of eacb887; `bash -n` clean on every script; `bash tests/run.sh` printed `PASS tests/test-farewell.sh`, `PASS tests/test-greet.sh`, `ran 2 test files`, exit 0, no `not ok`. Observed beyond the stories, not contract items: `--repeat 08` prints 8 lines (decimal, not octal); a duplicate `--repeat` and a count over 18 digits exit 2 with usage (untested).
+
+Cross-review: codex, 1 pass(es), converged at b2312f3
