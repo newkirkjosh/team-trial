@@ -34,7 +34,20 @@ done
 # name = "José" (e-acute is C3 A9); expected = "HELLO, JOSÉ!" (E-acute is C3 89).
 jose=$'Jos\xc3\xa9'
 upper_jose=$'HELLO, JOS\xc3\x89!'
-check "--shout upper-cases non-ASCII letters in a UTF-8 locale" "$upper_jose" "$(LC_ALL=C.UTF-8 bash greet.sh --shout "$jose" 2>/dev/null)"
-LC_ALL=C.UTF-8 bash greet.sh --shout "$jose" >/dev/null 2>&1; check "--shout with non-ASCII name exits 0" "0" "$?"
+
+# Pick an installed UTF-8 locale: C.UTF-8 / C.utf8, then en_US.UTF-8 / en_US.utf8, then any *.UTF-8 / *.utf8.
+utf8_locale=""
+installed=$(locale -a 2>/dev/null)
+for want in 'C\.(UTF-8|utf8)' 'en_US\.(UTF-8|utf8)' '.*\.(UTF-8|utf8)'; do
+  utf8_locale=$(printf '%s\n' "$installed" | grep -E -m1 "^${want}\$" || true)
+  [ -n "$utf8_locale" ] && break
+done
+
+if [ -n "$utf8_locale" ]; then
+  check "--shout upper-cases non-ASCII letters in a UTF-8 locale ($utf8_locale)" "$upper_jose" "$(LC_ALL=$utf8_locale bash greet.sh --shout "$jose" 2>/dev/null)"
+  LC_ALL=$utf8_locale bash greet.sh --shout "$jose" >/dev/null 2>&1; check "--shout with non-ASCII name exits 0 ($utf8_locale)" "0" "$?"
+else
+  echo "  skip: non-ASCII --shout cases (no UTF-8 locale installed; upper-casing non-ASCII is only defined in one)"
+fi
 
 exit $fail
