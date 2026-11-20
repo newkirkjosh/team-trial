@@ -20,6 +20,10 @@ if [ $# -ne 1 ] || [ -z "$1" ]; then
   usage
 fi
 
+case "$1" in
+  -*) usage ;;
+esac
+
 greeting=$(printf 'Hello, %s!' "$1")
 if [ "$shout" -eq 1 ]; then
   greeting=${greeting^^}
