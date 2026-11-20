@@ -17,3 +17,5 @@ Evaluated at: e5e54f4c5bfaec871f396ac9b7c45e8f9e2e634c
 - [x] `tests/test-farewell.sh` covers each acceptance criterion (7 checks, all passing)
 
 Evidence: the evaluator's run on the exported head, `bash tests/run.sh` rc=0 (`PASS tests/test-farewell.sh`, `PASS tests/test-greet.sh`, `ran 2 test files`), plus direct runs of `farewell.sh`. Verdict: PASS.
+
+Cross-review: codex, 1 pass(es), converged at b1be0f8
