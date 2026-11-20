@@ -7,4 +7,4 @@
 - **Explicitly out of scope:** `farewell.sh` (feat-farewell); changing how `--shout` behaves; CI changes.
 - **Size signal:** narrow
 - **Path:** bounded, one more flag on an existing script
-- **Known-and-accepted:** a hand-written flag loop is fine for two flags.
+- **Known-and-accepted:** a hand-written flag loop is fine for two flags. `greet.sh` requires Bash 4 or later (user decision made in feat-shout, which stands for this change): Bash 3.2 (macOS system bash) is unsupported. Do not flag Bash 3.2 incompatibility.
