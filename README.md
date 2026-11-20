@@ -4,5 +4,6 @@ A throwaway repository for trying the `dev` and `team` workflows end to end. The
 
 ```bash
 bash greet.sh Ada     # Hello, Ada!
+bash greet.sh --shout Ada  # HELLO, ADA!
 bash tests/run.sh     # run the tests
 ```

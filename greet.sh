@@ -1,11 +1,27 @@
 #!/usr/bin/env bash
-# Usage: greet.sh <name>
-# Prints a greeting for <name>.
+# Usage: greet.sh [--shout] <name>
+# Prints a greeting for <name>; with --shout the greeting is upper case.
 set -euo pipefail
 
-if [ $# -ne 1 ] || [ -z "$1" ]; then
-  echo "usage: greet.sh <name>" >&2
+usage() {
+  echo "usage: greet.sh [--shout] <name>" >&2
   exit 2
+}
+
+shout=0
+if [ $# -ge 1 ]; then
+  case "$1" in
+    --shout) shout=1; shift ;;
+    -*) usage ;;
+  esac
 fi
 
-printf 'Hello, %s!\n' "$1"
+if [ $# -ne 1 ] || [ -z "$1" ]; then
+  usage
+fi
+
+greeting=$(printf 'Hello, %s!' "$1")
+if [ "$shout" -eq 1 ]; then
+  greeting=${greeting^^}
+fi
+printf '%s\n' "$greeting"
