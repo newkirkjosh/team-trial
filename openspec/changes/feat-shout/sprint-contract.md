@@ -18,3 +18,5 @@ Evaluated at: 6aa851f8d8d41168b4c32ca3e8d48f6ba12da234
 - [x] Out of scope respected: no other flag, no CI change — observed
 
 Evidence: fresh evaluator run on the history-free export of 6aa851f; `bash -n` clean on every script; `bash tests/run.sh` printed `PASS tests/test-farewell.sh`, `PASS tests/test-greet.sh`, `ran 2 test files`, no `not ok`. Bash 5.3.15. Bash 3.2 is unsupported by user decision (scope brief, Known-and-accepted).
+
+Cross-review: codex, 5 pass(es) over 2 rounds, converged at d890c8b
