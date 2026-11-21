@@ -14,3 +14,5 @@ Evaluator run: evaluator_thanks (independent plain exports; no history).
 - [x] `tests/test-thanks.sh` covers the acceptance criteria — PASS: inspected and freshly executed by the full runner.
 
 Verification: repository syntax command exited 0; `bash tests/run.sh` executed three test files with zero failures or skips. Direct CLI checks covered named, missing, empty and extra arguments, spaces, format characters and a literal flag-shaped name. No processes remained after evaluation.
+
+Cross-review: claude, 1 pass(es), converged at e893df2
