@@ -15,4 +15,6 @@ Evaluator run: evaluator_thanks (independent plain exports; no history).
 
 Verification: repository syntax command exited 0; `bash tests/run.sh` executed three test files with zero failures or skips. Direct CLI checks covered named, missing, empty and extra arguments, spaces, format characters and a literal flag-shaped name. No processes remained after evaluation.
 
-Cross-review: claude, 1 pass(es), converged at e893df2
+Cross-review: claude, 1 pass(es), converged at fef114c
+
+Requested default-branch sync: clean merge of `fe8ddad73d80d31473252f47684ea9c656f30c3e`. The incoming welcome-only files leave the thanks CLI and its exercised paths unchanged, retaining the evaluator PASS above. Coordinator checks after the merge: syntax passed and all four test files executed successfully. Fresh Claude review covers the new merge base.
