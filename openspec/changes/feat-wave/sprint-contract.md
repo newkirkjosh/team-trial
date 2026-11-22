@@ -16,3 +16,5 @@ Evaluator run: agent acc7ac81413ed45ce (independent plain exports; no history).
 - [x] Nothing else changed; `README.md` untouched — PASS: base/head export comparison shows only `wave.sh`, `tests/test-wave.sh` and the change folder's `issues.md` as new.
 
 Verification: repository syntax command exited 0; `bash tests/run.sh` ran 5 test files, all PASS (test-wave.sh 7 ok, 0 not ok). Red evidence (coordinator's own run at d41ad91, before wave.sh existed): all 7 test-wave.sh checks failed, rc=1.
+
+Cross-review: codex, 1 pass(es), converged at d088ea7
