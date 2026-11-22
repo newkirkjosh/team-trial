@@ -16,3 +16,5 @@ Evaluator run: agent a71fd1eb5b4fcfaec (independent plain exports; no history).
 - [x] Nothing else changed; `README.md` untouched — PASS: `diff -rq base head` shows only `nod.sh`, `tests/test-nod.sh` and the change folder's `issues.md` as new; no base file modified.
 
 Verification: repository syntax command exited 0; `bash tests/run.sh` ran 5 test files, all PASS (test-nod.sh 7 ok), rc=0. Red evidence (coordinator's own run at 8e6adc6, before nod.sh existed): all 7 test-nod.sh checks failed, rc=1.
+
+Cross-review: codex, 1 pass(es), converged at 8e749f5
